@@ -1,4 +1,4 @@
-const getUser = require('./login');
+const getUser = require('./public/js/login');
 
 const http = require( 'http' ),
       fs   = require( 'fs' ),
@@ -75,8 +75,8 @@ passport.deserializeUser(function (email, cb) {
   cb(null, email);
 });
 
-const uri = `mongodb+srv://${process.env.MONGOUSER}:${process.env.MONGOPASSWORD}@cluster0.uyte9vz.mongodb.net/test`;
-mongoose.connect(uri).catch((err)=>{console.log(err)})
+const uri = `mongodb+srv://nappa22428:s40GErB0C1yIokB0@cluster0.uyte9vz.mongodb.net/test`;
+mongoose.connect(provess.env.MONGODB_URI).catch((err)=>{console.log(err)})
 const client = new mongodb.MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -146,5 +146,10 @@ app.post("/logout", async (req, res) => {
 
   res.redirect("/");
 });
+
+if (process.env.NODE_ENV === 'production')
+{
+  app.ise(express.static)
+}
 
 app.listen(process.env.PORT || port);
